@@ -1,26 +1,9 @@
 import argparse
-from train import train
-from test import test
-
-
-def main(args):
-    if args.test == False:
-        train(args)
-    else:
-        test(args)
-
-
-def str2bool(v):
-    if v.lower() in ('yes', 'true', 't', 'y', '1'):
-        return True
-    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
-        return False
-    else:
-        raise argparse.ArgumentTypeError('Boolean value expected.')
-
 
 if __name__ == '__main__':
+    # ===== set argparse =====
     parser = argparse.ArgumentParser()
+
     # Model Parmeters
     parser.add_argument('--n_epochs', type=float, default=1000,
                         help='max epochs')
@@ -84,4 +67,7 @@ if __name__ == '__main__':
                         help='for test')
 
     args = parser.parse_args()
-    main(args)
+
+    # =====
+
+    print(f'====================\n======finished======\n====================')

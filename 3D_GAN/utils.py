@@ -1,6 +1,7 @@
 import scipy.ndimage as nd
 import scipy.io as io
 import matplotlib
+
 # Force matplotlib to not use any Xwindows backend.
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -13,6 +14,7 @@ from torch.autograd import Variable
 import torch
 import os
 import pickle
+
 
 def getVoxelFromMat(path, cube_len=64):
     """Mat 데이터로 부터 Voxel 을 가져오는 함수"""
@@ -68,6 +70,7 @@ def make_hyparam_string(hyparam_dict):
         str_result = str_result + str(i) + "=" + str(hyparam_dict[i]) + "_"
     return str_result[:-1]
 
+
 class ShapeNetDataset(data.Dataset):
     """Custom Dataset compatible with torch.utils.data.DataLoader"""
 
@@ -90,13 +93,14 @@ class ShapeNetDataset(data.Dataset):
     def __len__(self):
         return len(self.listdir)
 
+
 def var_or_cuda(x):
     if torch.cuda.is_available():
         x = x.cuda()
     return Variable(x)
 
-def generateZ(args):
 
+def generateZ(args):
     if args.z_dis == "norm":
         Z = var_or_cuda(torch.Tensor(args.batch_size, args.z_size).normal_(0, 0.33))
     elif args.z_dis == "uni":
@@ -105,6 +109,7 @@ def generateZ(args):
         print("z_dist is not normal or uniform")
 
     return Z
+
 
 ########################## Pickle helper ###############################
 
@@ -131,7 +136,6 @@ def read_pickle(path, G, G_solver, D_, D_solver):
     except Exception as e:
 
         print("fail try read_pickle", e)
-
 
 
 def save_new_pickle(path, iteration, G, G_solver, D_, D_solver):
